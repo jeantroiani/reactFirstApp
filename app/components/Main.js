@@ -1,13 +1,15 @@
 var React = require('react');
+var Router = require('react-router');
+var RouteHandler = Router.RouteHandler;
 
 var Main = React.createClass({
     render: function() {
         return (
-            <div>
-                Hello World
+            <div >
+                <h1>Hello World</h1>
             </div>
         )
     }
 });
 
-React.render(<Main />, document.getElementById('app'));
+module.exports = Main;
