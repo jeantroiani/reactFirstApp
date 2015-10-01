@@ -5,8 +5,13 @@ var RouteHandler = Router.RouteHandler;
 var Main = React.createClass({
     render: function() {
         return (
-            <div >
-                <h1>Hello World</h1>
+            <div className="main-container">
+                <nav className="navbar navbar-default" role="navigation">
+                    <div className="margin-top">MENU</div>
+                </nav>
+                <div className="container">
+                    <RouteHandler />
+                </div>
             </div>
         )
     }
