@@ -4,15 +4,9 @@
 
 .row-md-4 {
     width: 30%;
-    display: inline-block;
     border: 1px red solid;
 }
 
 .navbar {
-    padding: 4px;
     background-color: grey;
-}
-
-.margin-top {
-    margin: 8px;
 }

@@ -23689,10 +23689,20 @@
 	var Repos = React.createClass({
 	    displayName: 'Repos',
 
+	    propTypes: {
+	        username: React.PropTypes.string.isRequired,
+	        repos: React.PropTypes.array.isRequired
+	    },
 	    render: function render() {
 	        return React.createElement(
 	            'div',
 	            null,
+	            'REPOS: ',
+	            React.createElement('br', null),
+	            'Username: ',
+	            this.props.username,
+	            ' ',
+	            React.createElement('br', null),
 	            'REPOS: ',
 	            this.props.repos
 	        );
