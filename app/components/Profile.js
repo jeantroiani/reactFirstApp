@@ -16,8 +16,8 @@ var Profile = React.createClass({
     render: function () {
         var username = this.getParams().username    //username because that is what we have in the params
         return (
-            <div className = "row-md-4">
-                <div className= "">
+            <div className = "">
+                <div className= "row-md-4">
                     <UserProfile username={username} bio={this.state.bio} />
                 </div>
                 <div className= "row-md-4">

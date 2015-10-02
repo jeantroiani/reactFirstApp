@@ -4,7 +4,9 @@
 
 .row-md-4 {
     width: 30%;
-    border: 1px red solid;
+    border: 1px grey solid;
+    display: inline-block;
+    text-align: inherit;
 }
 
 .navbar {

@@ -23656,10 +23656,10 @@
 	        var username = this.getParams().username; //username because that is what we have in the params
 	        return React.createElement(
 	            'div',
-	            { className: 'row-md-4' },
+	            { className: '' },
 	            React.createElement(
 	                'div',
-	                { className: '' },
+	                { className: 'row-md-4' },
 	                React.createElement(UserProfile, { username: username, bio: this.state.bio })
 	            ),
 	            React.createElement(
@@ -23722,6 +23722,10 @@
 	var Notes = React.createClass({
 	    displayName: 'Notes',
 
+	    propTypes: {
+	        username: React.PropTypes.string.isRequired,
+	        notes: React.PropTypes.array.isRequired
+	    },
 	    render: function render() {
 	        return React.createElement(
 	            'div',
@@ -23744,7 +23748,12 @@
 	var UserProfile = React.createClass({
 	    displayName: 'UserProfile',
 
+	    propTypes: {
+	        username: React.PropTypes.string.isRequired,
+	        bio: React.PropTypes.object.isRequired
+	    },
 	    render: function render() {
+
 	        return React.createElement(
 	            'div',
 	            null,
