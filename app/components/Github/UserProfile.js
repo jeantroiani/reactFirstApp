@@ -7,7 +7,6 @@ var UserProfile =  React.createClass({
             bio: React.PropTypes.object.isRequired
     },
     render: function () {
-
         return (
             <div>
                 User Profile<br />
