@@ -20,9 +20,12 @@ var Profile = React.createClass({
         var childRef = this.ref.child(this.getParams().username);
         this.bindAsArray(childRef, 'notes');
     },
-    // componentWillUnmount: function () {
-    //     this.unbind('notes');
-    // },
+    componentWillUnmount: function () {
+        this.unbind('notes');
+    },
+    handleAddNote: function (newNote) {
+        this.ref.child(this.getParams().username).push(newNote);
+    },
     render: function () {
         var username = this.getParams().username    //username because that is what we have in the params
         return (
@@ -34,7 +37,11 @@ var Profile = React.createClass({
                     <Repos username={username} repos={this.state.repos} />
                 </div>
                 <div className= "row-md-4">
-                    <Notes username={username} notes={this.state.notes} />
+                    <Notes
+                        username={username}
+                        notes={this.state.notes}
+                        addNote={this.handleAddNote}
+                        />
                 </div>
             </div>
         )
