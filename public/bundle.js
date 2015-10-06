@@ -23704,7 +23704,7 @@
 	            repos: ['repo_a', 'El_repositorio', 'repo_1981']
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {
+	    componentWillReceiveProps: function componentWillReceiveProps() {
 	        var _this = this;
 
 	        this.ref = new Firebase('https://incandescent-inferno-6987.firebaseio.com/');
@@ -23723,7 +23723,6 @@
 	        })['catch'](function (reason) {
 	            throw new Error('Promise rejected ' + reason + ', try again.');
 	        });
-	        console.log(this.repos);
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
 	        this.unbind('notes');

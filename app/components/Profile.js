@@ -16,7 +16,7 @@ var Profile = React.createClass({
             repos: ['repo_a', 'El_repositorio', 'repo_1981']
         };
     },
-    componentDidMount: function () {
+    componentWillReceiveProps: function () {
         this.ref = new Firebase('https://incandescent-inferno-6987.firebaseio.com/');
         var childRef = this.ref.child(this.getParams().username);
         this.bindAsArray(childRef, 'notes');
