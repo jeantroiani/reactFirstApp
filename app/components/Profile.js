@@ -5,6 +5,7 @@ var Notes = require('./Notes/Notes');
 var UserProfile = require('./Github/UserProfile');
 var ReactFireMixin = require('reactfire');
 var Firebase = require('firebase');
+var helpers = require('../utils/helpers');
 
 var Profile = React.createClass({
     mixins: [Router.State, ReactFireMixin],
@@ -13,12 +14,22 @@ var Profile = React.createClass({
             notes: ['hello','how are you?','Hi!'],
             bio: {bio: 'This is my story'},
             repos: ['repo_a', 'El_repositorio', 'repo_1981']
-        }
+        };
     },
     componentDidMount: function () {
         this.ref = new Firebase('https://incandescent-inferno-6987.firebaseio.com/');
         var childRef = this.ref.child(this.getParams().username);
         this.bindAsArray(childRef, 'notes');
+
+        helpers.getGithubUserInfo(this.getParams().username)
+            .then(([userInfo, userRepos]) =>
+                this.setState({
+                    bio: userInfo,
+                    repos: userRepos
+                })
+            )
+            .catch(reason => {throw new Error (`Promise rejected ${reason}, try again.`)});
+            console.log(this.repos);
     },
     componentWillUnmount: function () {
         this.unbind('notes');
@@ -27,7 +38,7 @@ var Profile = React.createClass({
         this.ref.child(this.getParams().username).push(newNote);
     },
     render: function () {
-        var username = this.getParams().username    //username because that is what we have in the params
+        var username = this.getParams().username;    //username because that is what we have in the params
         return (
             <div className = "">
                 <div className= "row-md-4">

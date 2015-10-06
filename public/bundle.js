@@ -23682,6 +23682,8 @@
 
 	'use strict';
 
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+
 	var React = __webpack_require__(2);
 	var Router = __webpack_require__(158);
 	var Repos = __webpack_require__(202);
@@ -23689,6 +23691,7 @@
 	var UserProfile = __webpack_require__(206);
 	var ReactFireMixin = __webpack_require__(207);
 	var Firebase = __webpack_require__(208);
+	var helpers = __webpack_require__(209);
 
 	var Profile = React.createClass({
 	    displayName: 'Profile',
@@ -23702,9 +23705,25 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
 	        this.ref = new Firebase('https://incandescent-inferno-6987.firebaseio.com/');
 	        var childRef = this.ref.child(this.getParams().username);
 	        this.bindAsArray(childRef, 'notes');
+
+	        helpers.getGithubUserInfo(this.getParams().username).then(function (_ref) {
+	            var _ref2 = _slicedToArray(_ref, 2);
+
+	            var userInfo = _ref2[0];
+	            var userRepos = _ref2[1];
+	            return _this.setState({
+	                bio: userInfo,
+	                repos: userRepos
+	            });
+	        })['catch'](function (reason) {
+	            throw new Error('Promise rejected ' + reason + ', try again.');
+	        });
+	        console.log(this.repos);
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
 	        this.unbind('notes');
@@ -24561,6 +24580,41 @@
 
 	module.exports = Firebase;
 
+
+/***/ },
+/* 209 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	function getRepos(username) {
+	    return fetch('https://api.github.com/users/' + username + '/repos', {
+	        method: 'get'
+	    }).then(function (response) {
+	        console.log(response);
+	        return response.json();
+	    })['catch'](function (err) {
+	        throw new Error('Error fetching data, pelase try again.');
+	    });
+	};
+
+	function getUserInfo(username) {
+	    return fetch('https://api.github.com/users/' + username, {
+	        method: 'get'
+	    }).then(function (response) {
+	        return response.json();
+	    })['catch'](function (err) {
+	        throw new Error('Error fetching data, pelase try again.');
+	    });
+	};
+
+	var GithubHelper = {
+	    getGithubUserInfo: function getGithubUserInfo(username) {
+	        return Promise.all([getUserInfo(username), getRepos(username)]);
+	    }
+	};
+
+	module.exports = GithubHelper;
 
 /***/ }
 /******/ ]);
