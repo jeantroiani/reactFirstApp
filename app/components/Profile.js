@@ -29,7 +29,6 @@ var Profile = React.createClass({
                 })
             )
             .catch(reason => {throw new Error (`Promise rejected ${reason}, try again.`)});
-            console.log(this.repos);
     },
     componentWillUnmount: function () {
         this.unbind('notes');
