@@ -23764,29 +23764,58 @@
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var React = __webpack_require__(2);
 
 	var Repos = React.createClass({
-	    displayName: 'Repos',
+	    displayName: "Repos",
 
 	    propTypes: {
 	        username: React.PropTypes.string.isRequired,
 	        repos: React.PropTypes.array.isRequired
 	    },
 	    render: function render() {
+	        // var repos = this.props.repos.map((repo, index) => {
+	        //     <li className="list-group-item" key={index}>
+	        //         {repo.htlm_url && <h4><a href={repo.htlm_url}>{repo.name}</a></h4>}
+	        //         {repo.description && <p>{repo.description}</p>}
+	        //
+	        //     </li>
+	        // });
+	        var repos = this.props.repos.map(function (repo, index) {
+	            return React.createElement(
+	                "li",
+	                { className: "list-group-item", key: index },
+	                repo.htlm_url && React.createElement(
+	                    "h4",
+	                    null,
+	                    React.createElement(
+	                        "a",
+	                        { href: repo.htlm_url },
+	                        repo.name
+	                    )
+	                ),
+	                repo.description && React.createElement(
+	                    "p",
+	                    null,
+	                    repo.description
+	                )
+	            );
+	        });
 	        return React.createElement(
-	            'div',
+	            "div",
 	            null,
-	            'REPOS: ',
-	            React.createElement('br', null),
-	            'Username: ',
-	            this.props.username,
-	            ' ',
-	            React.createElement('br', null),
-	            'REPOS: ',
-	            this.props.repos
+	            React.createElement(
+	                "h3",
+	                null,
+	                "Repos:"
+	            ),
+	            React.createElement(
+	                "ul",
+	                null,
+	                repos
+	            )
 	        );
 	    }
 	});
@@ -23920,14 +23949,26 @@
 	        return React.createElement(
 	            'div',
 	            null,
-	            'User Profile',
-	            React.createElement('br', null),
-	            'USER NAME: ',
-	            this.props.username,
-	            ' ',
-	            React.createElement('br', null),
-	            'BIO: ',
-	            this.props.bio
+	            React.createElement(
+	                'h3',
+	                null,
+	                'User Profile'
+	            ),
+	            React.createElement(
+	                'ul',
+	                null,
+	                this.props.bio.avatar_url && React.createElement(
+	                    'li',
+	                    null,
+	                    React.createElement('img', { src: this.props.bio.avatar_url })
+	                ),
+	                'USER NAME: ',
+	                this.props.username,
+	                ' ',
+	                React.createElement('br', null),
+	                'BIO: ',
+	                this.props.bio
+	            )
 	        );
 	    }
 	});

@@ -9,9 +9,12 @@ var UserProfile =  React.createClass({
     render: function () {
         return (
             <div>
-                User Profile<br />
+                <h3>User Profile</h3>
+                <ul>
+                    {this.props.bio.avatar_url && <li><img src={this.props.bio.avatar_url} /></li>}
                 USER NAME: {this.props.username} <br />
                 BIO: {this.props.bio}
+                </ul>
             </div>
         )
     }

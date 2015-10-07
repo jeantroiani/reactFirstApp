@@ -7,11 +7,28 @@ var Repos =  React.createClass({
             repos: React.PropTypes.array.isRequired
     },
     render: function () {
+        // var repos = this.props.repos.map((repo, index) => {
+        //     <li className="list-group-item" key={index}>
+        //         {repo.htlm_url && <h4><a href={repo.htlm_url}>{repo.name}</a></h4>}
+        //         {repo.description && <p>{repo.description}</p>}
+        //
+        //     </li>
+        // });
+        var repos = this.props.repos.map(function (repo, index) {
+            return (
+                <li className="list-group-item" key={index}>
+                    {repo.htlm_url && <h4><a href={repo.htlm_url}>{repo.name}</a></h4>}
+                    {repo.description && <p>{repo.description}</p>}
+
+                </li>
+            )
+        });
         return (
             <div>
-                REPOS: <br />
-                Username: {this.props.username} <br />
-                REPOS: {this.props.repos}
+                <h3>Repos:</h3>
+                <ul>
+                    {repos}
+                </ul>
             </div>
         )
     }
