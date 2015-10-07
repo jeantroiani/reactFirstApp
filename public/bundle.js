@@ -23704,13 +23704,11 @@
 	            repos: ['repo_a', 'El_repositorio', 'repo_1981']
 	        };
 	    },
-	    componentWillReceiveProps: function componentWillReceiveProps() {
+	    init: function init() {
 	        var _this = this;
 
-	        this.ref = new Firebase('https://incandescent-inferno-6987.firebaseio.com/');
 	        var childRef = this.ref.child(this.getParams().username);
 	        this.bindAsArray(childRef, 'notes');
-
 	        helpers.getGithubUserInfo(this.getParams().username).then(function (_ref) {
 	            var _ref2 = _slicedToArray(_ref, 2);
 
@@ -23724,8 +23722,16 @@
 	            throw new Error('Promise rejected ' + reason + ', try again.');
 	        });
 	    },
+	    componentDidMount: function componentDidMount() {
+	        this.ref = new Firebase('https://incandescent-inferno-6987.firebaseio.com/');
+	        this.init();
+	    },
 	    componentWillUnmount: function componentWillUnmount() {
 	        this.unbind('notes');
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps() {
+	        this.unbind('notes');
+	        this.init();
 	    },
 	    handleAddNote: function handleAddNote(newNote) {
 	        this.ref.child(this.getParams().username).push(newNote);
@@ -23776,13 +23782,6 @@
 	        repos: React.PropTypes.array.isRequired
 	    },
 	    render: function render() {
-	        // var repos = this.props.repos.map((repo, index) => {
-	        //     <li className="list-group-item" key={index}>
-	        //         {repo.htlm_url && <h4><a href={repo.htlm_url}>{repo.name}</a></h4>}
-	        //         {repo.description && <p>{repo.description}</p>}
-	        //
-	        //     </li>
-	        // });
 	        var repos = this.props.repos.map(function (repo, index) {
 	            return React.createElement(
 	                "li",
@@ -23934,12 +23933,12 @@
 /* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var React = __webpack_require__(2);
 
 	var UserProfile = React.createClass({
-	    displayName: 'UserProfile',
+	    displayName: "UserProfile",
 
 	    propTypes: {
 	        username: React.PropTypes.string.isRequired,
@@ -23947,27 +23946,80 @@
 	    },
 	    render: function render() {
 	        return React.createElement(
-	            'div',
+	            "div",
 	            null,
 	            React.createElement(
-	                'h3',
+	                "h3",
 	                null,
-	                'User Profile'
+	                "User Profile"
 	            ),
 	            React.createElement(
-	                'ul',
+	                "ul",
 	                null,
 	                this.props.bio.avatar_url && React.createElement(
-	                    'li',
+	                    "li",
 	                    null,
-	                    React.createElement('img', { src: this.props.bio.avatar_url })
+	                    React.createElement("img", { src: this.props.bio.avatar_url, className: "avatar" })
 	                ),
-	                'USER NAME: ',
-	                this.props.username,
-	                ' ',
-	                React.createElement('br', null),
-	                'BIO: ',
-	                this.props.bio
+	                this.props.bio.name && React.createElement(
+	                    "li",
+	                    null,
+	                    "Name: ",
+	                    this.props.bio.name
+	                ),
+	                this.props.bio.login && React.createElement(
+	                    "li",
+	                    null,
+	                    "Username: ",
+	                    this.props.bio.login
+	                ),
+	                this.props.bio.email && React.createElement(
+	                    "li",
+	                    null,
+	                    "Email: ",
+	                    this.props.bio.email
+	                ),
+	                this.props.bio.location && React.createElement(
+	                    "li",
+	                    null,
+	                    "Location: ",
+	                    this.props.bio.location
+	                ),
+	                this.props.bio.company && React.createElement(
+	                    "li",
+	                    null,
+	                    "Company: ",
+	                    this.props.bio.company
+	                ),
+	                this.props.bio.followers && React.createElement(
+	                    "li",
+	                    null,
+	                    "Followers: ",
+	                    this.props.bio.followers
+	                ),
+	                this.props.bio.following && React.createElement(
+	                    "li",
+	                    null,
+	                    "Following: ",
+	                    this.props.bio.following
+	                ),
+	                this.props.bio.following && React.createElement(
+	                    "li",
+	                    null,
+	                    "Public Repos: ",
+	                    this.props.bio.public_repos
+	                ),
+	                this.props.bio.blog && React.createElement(
+	                    "li",
+	                    null,
+	                    "Blog: ",
+	                    React.createElement(
+	                        "a",
+	                        { href: this.props.bio.blog },
+	                        " ",
+	                        this.props.bio.blog
+	                    )
+	                )
 	            )
 	        );
 	    }

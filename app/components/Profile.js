@@ -7,6 +7,7 @@ var ReactFireMixin = require('reactfire');
 var Firebase = require('firebase');
 var helpers = require('../utils/helpers');
 
+
 var Profile = React.createClass({
     mixins: [Router.State, ReactFireMixin],
     getInitialState: function () {
@@ -16,11 +17,9 @@ var Profile = React.createClass({
             repos: ['repo_a', 'El_repositorio', 'repo_1981']
         };
     },
-    componentWillReceiveProps: function () {
-        this.ref = new Firebase('https://incandescent-inferno-6987.firebaseio.com/');
+    init: function () {
         var childRef = this.ref.child(this.getParams().username);
         this.bindAsArray(childRef, 'notes');
-
         helpers.getGithubUserInfo(this.getParams().username)
             .then(([userInfo, userRepos]) =>
                 this.setState({
@@ -30,8 +29,17 @@ var Profile = React.createClass({
             )
             .catch(reason => {throw new Error (`Promise rejected ${reason}, try again.`)});
     },
+    componentDidMount: function () {
+        this.ref = new Firebase('https://incandescent-inferno-6987.firebaseio.com/');
+        this.init();
+
+    },
     componentWillUnmount: function () {
         this.unbind('notes');
+    },
+    componentWillReceiveProps: function () {
+        this.unbind('notes');
+        this.init();
     },
     handleAddNote: function (newNote) {
         this.ref.child(this.getParams().username).push(newNote);
