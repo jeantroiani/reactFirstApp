@@ -53,12 +53,26 @@
 
 	'use strict';
 
-	var React = __webpack_require__(2);
-	var Router = __webpack_require__(158);
-	var routes = __webpack_require__(197);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	Router.run(routes, function (Root) {
-	    React.render(React.createElement(Root, null), document.getElementById('app'));
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(158);
+
+	var _reactRouter2 = _interopRequireDefault(_reactRouter);
+
+	var _configRoutes = __webpack_require__(197);
+
+	var _configRoutes2 = _interopRequireDefault(_configRoutes);
+
+	// Router.run(routes, function(Root) {
+	//     React.render(<Root />, document.getElementById('app'));
+	// });
+	//ES6 way
+	_reactRouter2['default'].run(_configRoutes2['default'], function (Root, state) {
+	    _react2['default'].render(_react2['default'].createElement(Root, state), document.getElementById('app'));
 	});
 
 /***/ },
@@ -23554,21 +23568,43 @@
 
 	'use strict';
 
-	var React = __webpack_require__(2);
-	var Main = __webpack_require__(198);
-	var Home = __webpack_require__(200);
-	var Profile = __webpack_require__(201);
-	var Router = __webpack_require__(158);
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
 
-	var DefaultRoute = Router.DefaultRoute;
-	var Route = Router.Route;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	module.exports = React.createElement(
-	    Route,
-	    { name: 'app', path: '/', handler: Main },
-	    React.createElement(Route, { name: 'profile', path: 'profile/:username', handler: Profile }),
-	    React.createElement(DefaultRoute, { handler: Home })
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _componentsMain = __webpack_require__(198);
+
+	var _componentsMain2 = _interopRequireDefault(_componentsMain);
+
+	var _componentsHome = __webpack_require__(200);
+
+	var _componentsHome2 = _interopRequireDefault(_componentsHome);
+
+	var _componentsProfile = __webpack_require__(201);
+
+	var _componentsProfile2 = _interopRequireDefault(_componentsProfile);
+
+	// var Router = require('react-router');
+	// var DefaultRoute = Router.DefaultRoute;
+	// var Route = Router.Route;
+
+	//ES6 way
+
+	var _reactRouter = __webpack_require__(158);
+
+	exports['default'] = _react2['default'].createElement(
+	    _reactRouter.Route,
+	    { name: 'app', path: '/', handler: _componentsMain2['default'] },
+	    _react2['default'].createElement(_reactRouter.Route, { name: 'profile', path: 'profile/:username', handler: _componentsProfile2['default'] }),
+	    _react2['default'].createElement(_reactRouter.DefaultRoute, { handler: _componentsHome2['default'] })
 	);
+	module.exports = exports['default'];
 
 /***/ },
 /* 198 */
